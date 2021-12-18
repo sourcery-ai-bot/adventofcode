@@ -1,3 +1,5 @@
+module AdventOfCode.Year2021.Day01 (day01a, day01b) where
+
 import Data.List (tails)
 
 strToIntList :: String -> [Int]
@@ -13,6 +15,8 @@ movingSum k lst = map sumup $ tails lst
   where
     sumup = sum . take k
 
-main = do
-  input <- getContents
-  print . numTrue . hasIncreased . movingSum 3 $ strToIntList input
+day01a :: String -> Int
+day01a = numTrue . hasIncreased . strToIntList
+
+day01b :: String -> Int
+day01b = numTrue . hasIncreased . movingSum 3 . strToIntList
