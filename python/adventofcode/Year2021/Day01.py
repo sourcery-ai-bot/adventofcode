@@ -66,7 +66,7 @@ def parse_input(filename: str) -> list[int]:
 
 
 def count_increases(numbers: list[int]) -> int:
-    return sum([this < next for this, next in zip(numbers, numbers[1:])])
+    return sum(this < next for this, next in zip(numbers, numbers[1:]))
 
 
 def window_sums(numbers: list[int], k: int) -> list[int]:

@@ -343,11 +343,10 @@ def day11a(filename: str) -> int:
     steps = 100
     flashes = []
 
-    for s in range(steps):
+    for _ in range(steps):
         grid, fs = step(grid)
         flashes.append(fs)
-    total_flashes = sum(flashes)
-    return total_flashes
+    return sum(flashes)
 
 
 def day11b(filename: str) -> int:

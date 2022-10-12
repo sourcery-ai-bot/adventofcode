@@ -242,7 +242,7 @@ class SnailfishNumber:
                         + str(int(next_regular) + pair[1])
                         + slice_after[next_index + len(next_regular) :]
                     )
-                return slice_before + "0" + slice_after
+                return f"{slice_before}0{slice_after}"
             else:
                 if v == "[":
                     depth += 1
@@ -257,26 +257,27 @@ class SnailfishNumber:
             regular = large_regulars[0]
             regular_index = self._number.index(regular)
 
-            slice_before = self._number[:regular_index]
             slice_after = self._number[regular_index + len(regular) :]
-            return (
-                slice_before
-                + f"[{floor(int(regular) / 2)},{ceil(int(regular) / 2)}]"
-                + slice_after
-            )
+            slice_before = self._number[:regular_index]
+            return f"{slice_before}[{floor(int(regular) / 2)},{ceil(int(regular) / 2)}]{slice_after}"
+
 
         else:
             raise NoSplitting
 
     def __lt__(self, other: "SnailfishNumber"):
-        if not isinstance(other, SnailfishNumber):
-            return NotImplemented
-        return self.magnitude < other.magnitude
+        return (
+            self.magnitude < other.magnitude
+            if isinstance(other, SnailfishNumber)
+            else NotImplemented
+        )
 
     def __eq__(self, other):
-        if not isinstance(other, SnailfishNumber):
-            return NotImplemented
-        return self.magnitude == other.magnitude
+        return (
+            self.magnitude == other.magnitude
+            if isinstance(other, SnailfishNumber)
+            else NotImplemented
+        )
 
     def __add__(self, other: "SnailfishNumber") -> "SnailfishNumber":
         if isinstance(other, str):

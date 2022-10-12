@@ -96,7 +96,7 @@ def day08a(filename: str) -> int:
     for line in parse_input(filename):
         outputs = line.split(" | ")[1].split(" ")
         for digit in outputs:
-            if len(digit) in (2, 3, 4, 7):
+            if len(digit) in {2, 3, 4, 7}:
                 counter += 1
     return counter
 

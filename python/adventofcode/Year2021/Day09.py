@@ -51,12 +51,11 @@ import numpy.typing as npt
 
 
 def get_neighbors(row, col, height, width):
-    neighbors = [
+    return [
         (nr, nc)
         for (r, c) in [(0, 1), (1, 0), (0, -1), (-1, 0)]
         if 0 <= (nr := row + r) < height and 0 <= (nc := col + c) < width
     ]
-    return neighbors
 
 
 def get_low_points(heightmap):
@@ -67,7 +66,7 @@ def get_low_points(heightmap):
                 heightmap[neigh[0], neigh[1]]
                 for neigh in get_neighbors(row, col, *heightmap.shape)
             ]
-            if all([heightmap[row, col] < n for n in neighbors]):
+            if all(heightmap[row, col] < n for n in neighbors):
                 low_points.append((row, col))
     return low_points
 
@@ -81,7 +80,7 @@ def parse_input(filename: str) -> npt.NDArray[int]:
 def day09a(filename: str) -> int:
     heightmap = parse_input(filename)
     low_points = get_low_points(heightmap)
-    return sum([heightmap[lp] + 1 for lp in low_points])
+    return sum(heightmap[lp] + 1 for lp in low_points)
 
 
 def day09b(filename: str) -> int:

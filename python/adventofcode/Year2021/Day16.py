@@ -138,13 +138,13 @@ class OperatorPacket(Packet):
     @property
     def value(self) -> int:
         if self.packet_type == 0:
-            return sum([p.value for p in self.subpackets])
+            return sum(p.value for p in self.subpackets)
         if self.packet_type == 1:
             return int(np.product([p.value for p in self.subpackets]))
         if self.packet_type == 2:
-            return min([p.value for p in self.subpackets])
+            return min(p.value for p in self.subpackets)
         if self.packet_type == 3:
-            return max([p.value for p in self.subpackets])
+            return max(p.value for p in self.subpackets)
         if self.packet_type == 5:
             return 1 if self.subpackets[0].value > self.subpackets[1].value else 0
         if self.packet_type == 6:
@@ -167,7 +167,7 @@ class BITS:
             A tuple containing the parsed packet and the remaining bits.
         """
         data = self.data
-        version = int(data[0:3], 2)
+        version = int(data[:3], 2)
         packet_type = int(data[3:6], 2)
         if packet_type == 4:
             num = ""
@@ -191,7 +191,7 @@ class BITS:
             # next 11 bits are a number that represents the number of sub-packets immediately contained by this packet
             length = int(data[7:18], 2)
             data = data[18:]
-            for i in range(0, length):
+            for _ in range(length):
                 subpacket, bits = BITS(data).__parse_packet()
                 subpackets.append(subpacket)
                 data = bits.data

@@ -80,7 +80,7 @@ class RiskLevelMap:
                     self._cost[neighbor.row][neighbor.col].risk = cost_to_neighbor
                     queue.append(neighbor)
                     if int(os.getenv("ADVENTOFCODE_VISUALIZE", 0)):
-                        print(f"\033[{0};{0}H", end="")
+                        print(f"\033[0;0H", end="")
                         print(self.heatmap())
                         time.sleep(0.1)
         return self._cost[end.row][end.col].risk
@@ -101,7 +101,7 @@ class RiskLevelMap:
                 tile = self._cost[row][col]
                 background = 255 if tile in self.get_shortest_path else 0
                 if tile.risk == float("inf"):
-                    output += f"  ∞"
+                    output += "  ∞"
                     continue
                 color = foregrounds[
                     int((tile.risk - min_num) / (max_num - min_num) * 7)

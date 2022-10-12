@@ -70,14 +70,12 @@ Find the completion string for each incomplete line, score the completion string
 
 
 def are_opposing_brackets(a, b):
-    if (
+    return (
         (a == "(" and b == ")")
         or (a == "[" and b == "]")
         or (a == "{" and b == "}")
         or (a == "<" and b == ">")
-    ):
-        return True
-    return False
+    )
 
 
 def parse_input(filename: str) -> list[str]:
@@ -100,7 +98,7 @@ def day10a(filename: str) -> int:
             else:
                 corruptions[char] += 1
                 break
-    return sum([corruptions[x] * points[x] for x in points])
+    return sum(corruptions[x] * points[x] for x in points)
 
 
 def day10b(filename: str) -> int:
@@ -126,19 +124,17 @@ def day10b(filename: str) -> int:
         for char in reversed(stack):
             if char in [")", "]", "}", ">"]:
                 reverse_stack.append(char)
-            else:
-                if reverse_stack and are_opposing_brackets(char, reverse_stack[-1]):
-                    reverse_stack.pop()
-                else:
-                    if char == "(":
-                        fixes.append(")")
-                    elif char == "[":
-                        fixes.append("]")
-                    elif char == "{":
-                        fixes.append("}")
-                    elif char == "<":
-                        fixes.append(">")
+            elif reverse_stack and are_opposing_brackets(char, reverse_stack[-1]):
+                reverse_stack.pop()
+            elif char == "(":
+                fixes.append(")")
+            elif char == "<":
+                fixes.append(">")
 
+            elif char == "[":
+                fixes.append("]")
+            elif char == "{":
+                fixes.append("}")
         score = 0
         for fix in fixes:
             score *= 5

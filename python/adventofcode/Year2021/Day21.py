@@ -57,8 +57,7 @@ from functools import cache
 def parse_input(filename: str) -> list[int]:
     with open(filename, "r") as f:
         data = f.read().splitlines()
-    players = [int(line.split(":")[1].strip()) for line in data]
-    return players
+    return [int(line.split(":")[1].strip()) for line in data]
 
 
 def day21a(filename: str) -> int:

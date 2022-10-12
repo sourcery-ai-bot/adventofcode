@@ -60,7 +60,7 @@ def count_fish_after_days(timings: list[int], days: int):
     for t in timings:
         tracker[int(t)] += 1
 
-    for day in range(days):
+    for _ in range(days):
         tracker = step(tracker, delay, offset)
 
     return sum(tracker.values())

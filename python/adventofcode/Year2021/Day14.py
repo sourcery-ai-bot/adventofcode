@@ -49,10 +49,7 @@ class Polymer:
         with open(filename, "r") as f:
             data = f.read().splitlines()
         polymer_template = data[0]
-        rules = {
-            pair: insertion
-            for pair, insertion in (rule.split(" -> ") for rule in data[2:])
-        }
+        rules = dict((rule.split(" -> ") for rule in data[2:]))
         return cls(polymer_template, rules)
 
 
